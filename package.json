@@ -1,0 +1,19 @@
+{
+  "name": "playwrightwithpython",
+  "version": "1.0.0",
+  "description": "Test Automation using Python, Pytest and Playwright",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/raajputro/PlaywrightWithPython.git"
+  },
+  "author": "mahbub",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/raajputro/PlaywrightWithPython/issues"
+  },
+  "homepage": "https://github.com/raajputro/PlaywrightWithPython#readme"
+}
