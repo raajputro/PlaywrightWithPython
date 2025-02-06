@@ -1,4 +1,3 @@
-from playwright.sync_api import expect
 from page_models.page_basic_actions import basicActions
 
 
@@ -26,10 +25,6 @@ class dashboardPage(basicActions):
         self.side_bar_2_item_1 = page.locator("//div[@class='q-list'][2]/div/div/div[contains(text(),'Community')]")
         self.side_bar_2_item_2 = page.locator("//div[@class='q-list'][2]/div/div/div[contains(text(),'Help')]")
         self.side_bar_2_item_3 = page.locator("//div[@class='q-list'][2]/div/div/div[contains(text(),'Logout')]")
-
-
-    def verifyByElement(self):
-        expect(self.page_txt_element).to_be_visible()
 
 
     def returnPageElement(self, name):

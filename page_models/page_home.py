@@ -1,5 +1,6 @@
 from page_models.page_basic_actions import basicActions
 
+
 class homePage(basicActions):
     def __init__(self, page):
         super().__init__(page)

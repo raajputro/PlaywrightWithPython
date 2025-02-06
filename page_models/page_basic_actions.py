@@ -25,7 +25,9 @@ class basicActions:
         expect(elem).to_have_text(text)
 
     def waitToLoadElement(self, elem):
-        expect(elem).to_be_visible()
+        #self.page.wait_for_selector(elem)
+        elem.wait_for(state='visible')
+        #expect(elem).to_be_visible()
 
     def clickOnBtn(self, btn):
         btn.click()
@@ -36,3 +38,10 @@ class basicActions:
     def inputInElement(self, elem, inputText):
         elem.click()
         elem.fill(inputText)
+
+    def selectFromListByIndex(self, elem, index):
+        return
+
+    def selectFromListByValue(self, elem, value):
+        elem.click()
+        elem.select_option(value)
