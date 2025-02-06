@@ -8,8 +8,15 @@ class basicActions:
     def navigateToUrl(self, givenUrl):
         self.page.goto(givenUrl)
 
-    def getScreenshot(self, name):
-        self.page.screenshot(path=os.getcwd() + "/screenshots/" + name + ".png")
+    def returnPageElement(self, name):
+        switcher = {
+            # 'name1' : element locator,
+            # 'name2' : element locator,
+        }
+        return switcher.get(name, 'nothing')
+
+    # def getScreenshot(self, name):
+    #     self.page.screenshot(path=os.getcwd() + "/screenshots/" + name + ".png")
 
     def verifyByTitle(self, title):
         expect(self.page).to_have_title(title)

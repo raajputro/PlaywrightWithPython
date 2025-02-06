@@ -9,9 +9,11 @@ class homePage(basicActions):
         self.signup_btn_element = page.locator("//button/span/span[text()='Sign-up']")
         self.page_txt_element = page.locator("//h1[text()='Hi there,']")
 
-    # Actions available in this page
-    def clickOnLoginBtn(self):
-        self.clickOnBtn(self.login_btn_element)
-
-    def clickOnSignupBtn(self):
-        self.clickOnBtn(self.signup_btn_element)
+    # Return available elements of this page
+    def returnPageElement(self, name):
+        name = name.lower()
+        switcher = {
+            "login": self.login_btn_element,
+            "sign": self.signup_btn_element,
+        }
+        return switcher.get(name, "nothing")

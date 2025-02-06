@@ -9,7 +9,10 @@ from page_models.page_dashboard import dashboardPage
 import pytest
 from playwright.sync_api import sync_playwright
 
-@pytest.fixture()
+current_directory = os.getcwd()
+print(current_directory)
+
+@pytest.fixture(scope='session', autouse=True)
 def resource():
     with sync_playwright() as playwright:
         # Launch the browser
@@ -19,39 +22,38 @@ def resource():
         browser.close()
 
 def getScreenShot(pageObj, name):
-    pageObj.screenshot(path=os.getcwd() + "/screenshots/" + name + ".png")
-
-def performHomePage(h_page):
-    h_page.navigateToUrl("https://dev-meetingspace.askmak.ai")
-    h_page.verifyByTitle("humaneer")
-    h_page.getScreenshot("1_ss_landing_page" + str(time()))
-    h_page.clickOnLoginBtn()
-
-def performLoginPage(l_page):
-    l_page.verifyByTitle("Log in | Meeting Space")
-    l_page.getScreenshot("2_ss_login_page" + str(time()))
-    l_page.user_login(username="najib@inument.com", password="mE@020486")
-
-def performDashboardPage(d_page):
-    d_page.verifyByElement()
-    d_page.getScreenshot("3_ss_dashboard_page" + str(time()))
-
+    pageObj.screenshot(path=current_directory + "/screenshots/" + name + ".png")
+    #pageObj.screenshot(path=current_directory + "/screenshots/" + name + "-" + str(time()) + ".png")
 
 # Tests are written
 def test_home_page(resource):
-    home_page = homePage(resource)
-    performHomePage(home_page)
+    h_page = homePage(resource)
+    h_page.navigateToUrl("https://dev-meetingspace.askmak.ai")
+    h_page.verifyByTitle("humaneer")
+    getScreenShot(resource, name="ss_landing_page")
+    elem = h_page.returnPageElement('login')
+    h_page.clickOnBtn(elem)
 
 def test_login_page(resource):
-    home_page = homePage(resource)
-    performHomePage(home_page)
-    login_page = loginPage(resource)
-    performLoginPage(login_page)
+    #test_home_page(resource)
+    l_page = loginPage(resource)
+    l_page.verifyByTitle("Log in | Meeting Space")
+    getScreenShot(resource, name="ss_login_page")
+    l_page.user_login(username="najib@inument.com", password="mE@020486")
 
 def test_dashboard_page(resource):
-    home_page = homePage(resource)
-    performHomePage(home_page)
-    login_page = loginPage(resource)
-    performLoginPage(login_page)
-    dashboard_page = dashboardPage(resource)
-    performDashboardPage(dashboard_page)
+    #test_login_page(resource)
+    d_page = dashboardPage(resource)
+    #d_page.verifyByElement()
+    elem = d_page.returnPageElement('home')
+    d_page.waitToLoadElement(elem)
+    getScreenShot(resource, name="ss_dashboard_page")
+
+def test_go_to_recording_from_dashboard(resource):
+    d_page = dashboardPage(resource)
+    elem = d_page.returnPageElement('recording')
+    d_page.clickOnElement(elem)
+    elem = d_page.returnPageElement('home')
+    d_page.waitToLoadElement(elem)
+    getScreenShot(resource, name="ss_recording_page")
+    d_page.clickOnElement(elem)

@@ -17,12 +17,3 @@
 #     # screenshot_bytes = page.screenshot()
 #     # print(base64.b64encode(screenshot_bytes).decode())
 
-
-import itertools
-import numpy as np
-data = [1,2]
-result = list(itertools.permutations(data))
-for r in result:
-    print(r)
-print("Print using numpy")
-print(np.matrix(result))
